@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { View } from "react-native";
 import * as Contacts from "expo-contacts";
 import { Text } from "~/components/ui/text";
+import ContactEntry from "~/components/contacts/ContactEntry";
 
 export default function Screen() {
   const [contacts, setContacts] = useState<Contacts.Contact[]>([]);
@@ -17,11 +18,9 @@ export default function Screen() {
   }, []);
 
   return (
-    <View className="flex-1 justify-center items-center gap-5 p-6 bg-secondary/30">
+    <View className="flex-1 justify-center gap-5 p-6 bg-secondary/30">
       {contacts.map((contact) => (
-        <Text key={contact.id}>
-          {contact.name} {contact.firstName} {contact.lastName}
-        </Text>
+        <ContactEntry key={contact.id} raw={contact} />
       ))}
     </View>
   );
