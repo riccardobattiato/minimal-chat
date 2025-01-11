@@ -59,6 +59,13 @@ export default function RootLayout() {
             headerRight: () => <ThemeToggle />,
           }}
         />
+        <Stack.Screen
+          name='chat'
+          options={{
+            title: 'Chat screen',
+            headerRight: () => <ThemeToggle />,
+          }}
+        />
       </Stack>
       <PortalHost />
     </ThemeProvider>
