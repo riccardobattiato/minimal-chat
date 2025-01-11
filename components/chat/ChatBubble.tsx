@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { View } from "react-native";
 import { Text } from "~/components/ui/text";
 import { Small } from "~/components/ui/typography";
@@ -6,7 +7,7 @@ import { cn } from "~/lib/utils";
 type Props = {
   sent?: boolean;
   content: string;
-  timestamp: string;
+  timestamp?: Date;
 };
 
 const ChatBubble = ({ content, sent, timestamp }: Props) => {
@@ -27,9 +28,11 @@ const ChatBubble = ({ content, sent, timestamp }: Props) => {
           {content}
         </Text>
       </View>
-      <View className="mt-2 items-end">
-        <Small>{timestamp}</Small>
-      </View>
+      {timestamp && (
+        <View className="mt-2 items-end">
+          <Small>{format(timestamp, 'HH:mm')}</Small>
+        </View>
+      )}
     </View>
   );
 };

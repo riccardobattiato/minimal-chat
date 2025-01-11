@@ -4,6 +4,7 @@ import { Text } from "~/components/ui/text";
 import { H4 } from "~/components/ui/typography";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Link } from "expo-router";
+import ContactAvatar from "./ContactAvatar";
 
 type Props = {
   raw: Contacts.Contact;
@@ -14,21 +15,13 @@ const ContactEntry = ({ raw, onPress }: Props) => {
   const handlePress = () => {
     if (raw.id) onPress?.(raw.id);
   };
-  const avatarFallback = `${raw.firstName?.charAt(0)}${raw.lastName?.charAt(
-    1
-  )}`;
 
   return (
     <Link asChild push href="/chat">
       <Pressable>
         <View className="flex-row items-center">
           <View className="mr-2">
-            <Avatar alt={`${raw.firstName} ${raw.lastName}'s avatar`}>
-              <AvatarImage source={{ uri: "" }} />
-              <AvatarFallback>
-                <Text className="uppercase">{avatarFallback}</Text>
-              </AvatarFallback>
-            </Avatar>
+            <ContactAvatar raw={raw} />
           </View>
           <View>
             <View>
