@@ -18,7 +18,7 @@ export default function Screen() {
   }, []);
 
   return (
-    <View className="flex-1 justify-center gap-5 p-6 bg-secondary/30">
+    <View className="flex-1 gap-5 p-6 bg-secondary/30">
       {contacts.map((contact) => (
         <ContactEntry key={contact.id} raw={contact} />
       ))}
