@@ -1,8 +1,16 @@
-import { View } from "react-native";
+import { useState } from "react";
+import {
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+  View,
+  ScrollView,
+} from "react-native";
 import ChatReceived from "~/components/chat/ChatReceived";
 import ChatSent from "~/components/chat/ChatSent";
 import { Text } from "~/components/ui/text";
-import { Message } from "~/lib/types";
+import { Input } from "~/components/ui/input";
+import type { Message } from "~/lib/types";
 
 const received: Message[] = [
   {
@@ -32,19 +40,53 @@ const sent: Message[] = [
 ];
 
 export default function Screen() {
+  const [value, setValue] = useState("");
+
+  const onChangeText = (text: string) => {
+    setValue(text);
+  };
   return (
-    <View className="flex-1 gap-5 p-6 bg-secondary/30">
-      <Text>Chat screen</Text>
-      <ChatReceived
-        contact={{
-          firstName: "Lorem",
-          lastName: "Ipsum",
-          name: "Lorem Ipsum",
-          contactType: "person",
-        }}
-        messages={received}
-      />
-      <ChatSent messages={sent} />
-    </View>
+    <SafeAreaView className="flex-1">
+      <KeyboardAvoidingView
+        behavior="padding"
+        className="flex-1 bg-secondary/30"
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+      >
+        <ScrollView
+          className="flex-1 -scale-y-100"
+          contentContainerClassName="-scale-y-100 gap-5 p-6"
+        >
+          <ChatReceived
+            contact={{
+              firstName: "Lorem",
+              lastName: "Ipsum",
+              name: "Lorem Ipsum",
+              contactType: "person",
+            }}
+            messages={received}
+          />
+          <ChatSent messages={sent} />
+          <ChatReceived
+            contact={{
+              firstName: "Lorem",
+              lastName: "Ipsum",
+              name: "Lorem Ipsum",
+              contactType: "person",
+            }}
+            messages={received}
+          />
+          <ChatSent messages={sent} />
+        </ScrollView>
+        <View className="mt-auto p-6">
+          <Input
+            placeholder="Write some stuff..."
+            value={value}
+            onChangeText={onChangeText}
+            aria-labelledby="inputLabel"
+            aria-errormessage="inputError"
+          />
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
