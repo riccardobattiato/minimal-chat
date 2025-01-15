@@ -5,12 +5,13 @@ import {
   Platform,
   View,
   ScrollView,
+  Vibration,
 } from "react-native";
 import ChatReceived from "~/components/chat/ChatReceived";
 import ChatSent from "~/components/chat/ChatSent";
-import { Text } from "~/components/ui/text";
 import { Input } from "~/components/ui/input";
 import type { Message } from "~/lib/types";
+import SendButton from "~/components/chat/SendButton";
 
 const received: Message[] = [
   {
@@ -41,16 +42,27 @@ const sent: Message[] = [
 
 export default function Screen() {
   const [value, setValue] = useState("");
+  const [urgent, setUrgent] = useState(false);
 
   const onChangeText = (text: string) => {
     setValue(text);
+  };
+
+  const handleSend = () => {
+    console.log("Send");
+  };
+
+  const toggleUrgency = () => {
+    console.log("long press");
+    Vibration.vibrate(30)
+    setUrgent((value) => !value);
   };
   return (
     <SafeAreaView className="flex-1">
       <KeyboardAvoidingView
         behavior="padding"
         className="flex-1 bg-secondary/30"
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
       >
         <ScrollView
           className="flex-1 -scale-y-100"
@@ -78,13 +90,19 @@ export default function Screen() {
           <ChatSent messages={sent} />
         </ScrollView>
         <View className="mt-auto p-6">
-          <Input
-            placeholder="Write some stuff..."
-            value={value}
-            onChangeText={onChangeText}
-            aria-labelledby="inputLabel"
-            aria-errormessage="inputError"
-          />
+          <View className="flex-row items-center gap-x-4">
+            <Input
+              placeholder="Write some stuff..."
+              value={value}
+              onChangeText={onChangeText}
+              aria-labelledby="inputLabel"
+              aria-errormessage="inputError"
+              className="flex-1"
+            />
+            <View>
+              <SendButton urgent={urgent} onPress={handleSend} onLongPress={toggleUrgency} />
+            </View>
+          </View>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
