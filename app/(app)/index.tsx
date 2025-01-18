@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import * as Contacts from "expo-contacts";
-import { Text } from "~/components/ui/text";
 import ContactEntry from "~/components/contacts/ContactEntry";
 
-export default function Screen() {
+export default function Index() {
   const [contacts, setContacts] = useState<Contacts.Contact[]>([]);
 
   useEffect(() => {

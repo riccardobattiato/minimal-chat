@@ -6,15 +6,15 @@ import {
   Theme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { Stack } from "expo-router";
+import { Slot } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { Platform } from "react-native";
 import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";
 import { PortalHost } from "@rn-primitives/portal";
-import { ThemeToggle } from "~/components/ThemeToggle";
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
+import { SessionProvider } from "~/lib/auth";
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -54,26 +54,13 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-      <Stack>
-        <Stack.Screen
-          name="index"
-          options={{
-            title: "Contacts",
-            headerRight: () => <ThemeToggle />,
-          }}
-        />
-        <Stack.Screen
-          name="chat"
-          options={{
-            title: "Chat screen",
-            headerRight: () => <ThemeToggle />,
-          }}
-        />
-      </Stack>
-      <PortalHost />
-    </ThemeProvider>
+    <SessionProvider>
+      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+        <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+        <Slot />
+        <PortalHost />
+      </ThemeProvider>
+    </SessionProvider>
   );
 }
 
