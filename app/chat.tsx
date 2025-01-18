@@ -54,7 +54,7 @@ export default function Screen() {
 
   const toggleUrgency = () => {
     console.log("long press");
-    Vibration.vibrate(30)
+    Vibration.vibrate(30);
     setUrgent((value) => !value);
   };
   return (
@@ -100,7 +100,11 @@ export default function Screen() {
               className="flex-1"
             />
             <View>
-              <SendButton urgent={urgent} onPress={handleSend} onLongPress={toggleUrgency} />
+              <SendButton
+                urgent={urgent}
+                onPress={handleSend}
+                onLongPress={toggleUrgency}
+              />
             </View>
           </View>
         </View>

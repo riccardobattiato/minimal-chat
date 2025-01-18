@@ -30,7 +30,7 @@ const ChatBubble = ({ content, sent, timestamp }: Props) => {
       </View>
       {timestamp && (
         <View className="mt-2 items-end">
-          <Small>{format(timestamp, 'HH:mm')}</Small>
+          <Small>{format(timestamp, "HH:mm")}</Small>
         </View>
       )}
     </View>

@@ -3,7 +3,7 @@ import { Message } from "./types";
 
 export const hideTimestampIfNeeded = (
   messages: Message[],
-  index: number
+  index: number,
 ): Date | undefined => {
   const current = messages[index].timestamp;
   const next = messages[index + 1]?.timestamp;

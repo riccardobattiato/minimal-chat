@@ -8,7 +8,7 @@ type Props = {
 
 const ContactAvatar = ({ raw }: Props) => {
   const avatarFallback = `${raw.firstName?.charAt(0)}${raw.lastName?.charAt(
-    0
+    0,
   )}`;
 
   // Credits https://stackoverflow.com/a/5365036
