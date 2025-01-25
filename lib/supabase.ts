@@ -1,6 +1,7 @@
 import "react-native-url-polyfill/auto";
 import { type SupportedStorage, createClient } from "@supabase/supabase-js";
 import { MMKV } from "react-native-mmkv";
+import { Database } from "~/types/database.types";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
@@ -14,7 +15,7 @@ const mmkvSupabaseSupportedStorage = {
   removeItem: (key) => storage.delete(key),
 } satisfies SupportedStorage;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   auth: {
     storage: mmkvSupabaseSupportedStorage,
     autoRefreshToken: true,
